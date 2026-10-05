@@ -14,9 +14,11 @@ Rather than treating ANN libraries as black boxes, this project builds the ideas
 
 For a query vector (q), the exact nearest-neighbor problem requires comparing (q) against every point in the dataset:
 
+$$
 [
 x^\* = \arg\min\_{x_i \in X} d(q,x_i)
 ]
+$$
 
 For (N) points, this requires approximately (O(N)) distance computations per query.
 
@@ -235,15 +237,19 @@ Reach approximate nearest neighbor
 
 For a query (q), the search repeatedly examines the neighborhood of the current vertex (v):
 
+$$
 [
 N(v) = {u_1,u_2,\ldots,u_k}
 ]
+$$
 
 and moves toward a neighbor that reduces the distance
 
+$$
 [
 d(q,u) < d(q,v).
 ]
+$$
 
 Unlike brute-force search, we do not need to evaluate the distance from (q) to every point in the dataset.
 
@@ -261,10 +267,11 @@ nearest = np.argmin(distances)
 ```
 
 Complexity:
-
+$$
 [
 O(N)
 ]
+$$
 
 distance evaluations per query.
 
@@ -308,9 +315,9 @@ For a query (q), let:
 
 Then:
 
+$$
 \frac{|E_k(q)\cap A_k(q)|}{k}
-]
-
+$$
 averaged over the query set.
 
 For example:
@@ -323,10 +330,11 @@ means the approximate search recovered all true nearest neighbors.
 
 The project also examines the amount of search performed, allowing us to study the fundamental ANN trade-off:
 
+$$
 [
 \boxed{\text{Search Cost} \quad \leftrightarrow \quad \text{Recall}}
 ]
-
+$$
 ---
 
 ## Why NSW?
