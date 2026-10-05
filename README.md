@@ -12,15 +12,13 @@ Rather than treating ANN libraries as black boxes, this project builds the ideas
 
 ## Motivation
 
-For a query vector (q), the exact nearest-neighbor problem requires comparing (q) against every point in the dataset:
+For a query vector $q$, the exact nearest-neighbor problem requires comparing $q$ against every point in the dataset:
 
 $$
-[
-x^\* = \arg\min\_{x_i \in X} d(q,x_i)
-]
+x^* = \arg\min_{x_i \in X} d(q, x_i)
 $$
 
-For (N) points, this requires approximately (O(N)) distance computations per query.
+For $N$ points, this requires approximately $O(N)$ distance computations per query.
 
 This becomes expensive for large vector datasets.
 
@@ -83,7 +81,7 @@ ann-search/
 
 Introduces the basic **K-Nearest Neighbor graph**.
 
-Given a collection of vectors, every point is connected to its (k) nearest neighbors.
+Given a collection of vectors, every point is connected to its $k$ nearest neighbors.
 
 The notebook constructs and visualizes the resulting graph.
 
@@ -235,23 +233,19 @@ Greedily move toward query
 Reach approximate nearest neighbor
 ```
 
-For a query (q), the search repeatedly examines the neighborhood of the current vertex (v):
+For a query $q$, the search repeatedly examines the neighborhood of the current vertex $v$:
 
 $$
-[
-N(v) = {u_1,u_2,\ldots,u_k}
-]
+N(v) = \{u_1, u_2, \ldots, u_k\}
 $$
 
-and moves toward a neighbor that reduces the distance
+and moves toward a neighbor that reduces the distance:
 
 $$
-[
-d(q,u) < d(q,v).
-]
+d(q, u) < d(q, v)
 $$
 
-Unlike brute-force search, we do not need to evaluate the distance from (q) to every point in the dataset.
+Unlike brute-force search, we do not need to evaluate the distance from $q$ to every point in the dataset.
 
 ---
 
@@ -267,17 +261,16 @@ nearest = np.argmin(distances)
 ```
 
 Complexity:
+
 $$
-[
 O(N)
-]
 $$
 
 distance evaluations per query.
 
 ### Approximate Graph Search
 
-Instead of scanning all (N) points:
+Instead of scanning all $N$ points:
 
 ```text
 query
@@ -298,7 +291,7 @@ better neighbor
 approximate NN
 ```
 
-The number of visited nodes can be substantially smaller than (N).
+The number of visited nodes can be substantially smaller than $N$.
 
 The cost is that the returned point is not guaranteed to be the exact nearest neighbor.
 
@@ -306,18 +299,20 @@ The cost is that the returned point is not guaranteed to be the exact nearest ne
 
 ## Evaluation
 
-The main metric used in the experiments is **Recall\@k**.
+The main metric used in the experiments is **Recall@k**.
 
-For a query (q), let:
+For a query $q$, let:
 
-- (E_k(q)) = exact (k)-nearest neighbors
-- (A_k(q)) = approximate (k)-nearest neighbors
+- $E_k(q)$ = exact $k$-nearest neighbors
+- $A_k(q)$ = approximate $k$-nearest neighbors
 
 Then:
 
 $$
-\frac{|E_k(q)\cap A_k(q)|}{k}
+\mathrm{Recall@}k =
+\frac{|E_k(q) \cap A_k(q)|}{k}
 $$
+
 averaged over the query set.
 
 For example:
@@ -331,10 +326,9 @@ means the approximate search recovered all true nearest neighbors.
 The project also examines the amount of search performed, allowing us to study the fundamental ANN trade-off:
 
 $$
-[
 \boxed{\text{Search Cost} \quad \leftrightarrow \quad \text{Recall}}
-]
 $$
+
 ---
 
 ## Why NSW?
@@ -381,9 +375,11 @@ HNSW introduces a hierarchy:
 Layer 2:              ●──────●
                      /        \
                     /          \
+
 Layer 1:       ●───●────●──────●───●
                 \       \      /
                  \       \    /
+
 Layer 0:    ●─●─●─●─●─●─●─●─●─●─●─●─●
 ```
 
@@ -444,8 +440,8 @@ The implementation is inspired by the literature on navigable small-world graphs
 
 A major reference for the NSW/HNSW line of algorithms is:
 
-> Malkov, Y. A., & Yashunin, D. A. (2018).
-> **Efficient and Robust Approximate Nearest Neighbor Search Using Hierarchical Navigable Small World Graphs.**
+> Malkov, Y. A., & Yashunin, D. A. (2018).  
+> **Efficient and Robust Approximate Nearest Neighbor Search Using Hierarchical Navigable Small World Graphs.**  
 > IEEE Transactions on Pattern Analysis and Machine Intelligence.
 
 ---
